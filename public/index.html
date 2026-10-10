@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f6f6f2" />
+    <title>Less wire, same story — Web Compression Lab</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/shortcuts.css" />
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body>
+    <header class="topbar"><a class="brand" href="#top"><span class="brand-mark">↗</span> FIELDNOTES <span class="brand-divider">/</span> LAB 04</a><span class="top-note"><span class="live-dot"></span> LIVE COMPRESSION DEMO</span></header>
+    <main id="top">
+      <section class="intro">
+        <div class="intro-copy"><p class="eyebrow">A tiny experiment in less wire</p><h1>Same stories.<br /><em>Smaller trip.</em></h1><p class="lede">Six travel picks, one JSON response. Switch the encoding and watch how much data crosses the wire.</p></div>
+        <div class="hero-art" role="img" aria-label="Illustration of mountains and a setting sun"><div class="sun"></div><div class="mountain mountain-back"></div><div class="mountain mountain-front"></div><div class="hero-caption">FIELD GUIDE <span>·</span> 06 STORIES</div></div>
+      </section>
+      <aside class="chrome-shortcut" aria-label="Chrome dictionary tools">
+        <div class="chrome-shortcut-copy"><span class="eyebrow">CHROME HANDS-ON</span><strong>Inspect the browser's shared dictionaries</strong><p>This demo advertises a real dictionary. Use the Dictionary tab, wait for the dictionary fetch, then Fetch again before inspecting Chrome's store.</p></div>
+        <a class="chrome-link" href="chrome://net-internals/#sharedDictionary" target="_blank" rel="noreferrer">Open Chrome page ↗</a>
+        <button class="copy-link" id="copy-chrome-link" type="button">Copy address</button>
+        <span class="copy-status" id="copy-status" role="status" aria-live="polite"></span>
+      </aside>
+      <section class="lab" aria-labelledby="lab-title">
+        <div class="section-head"><div><p class="eyebrow">THE LAB</p><h2 id="lab-title">Pick a packing method</h2></div><div class="sample-size"><span class="size-dot"></span> SAME PAYLOAD <strong id="payload-size">—</strong></div></div>
+        <div class="tabs" role="tablist" aria-label="Compression method">
+          <button class="tab" role="tab" aria-selected="false" data-mode="identity"><span class="tab-num">01</span> Plain <small>uncompressed</small></button>
+          <button class="tab" role="tab" aria-selected="false" data-mode="gzip"><span class="tab-num">02</span> gzip <small>DEFLATE</small></button>
+          <button class="tab" role="tab" aria-selected="false" data-mode="br"><span class="tab-num">03</span> Brotli <small>br</small></button>
+          <button class="tab" role="tab" aria-selected="true" data-mode="dictionary"><span class="tab-num">04</span> Shared dictionary <small>CDT · dcb</small></button>
+        </div>
+        <div class="metrics" aria-live="polite">
+          <div class="metric"><span class="metric-label">ON THE WIRE</span><strong id="wire-size">—</strong><span class="metric-foot" id="wire-caption">Loading sample…</span></div>
+          <div class="metric savings-metric"><span class="metric-label">LESS TO SEND</span><strong id="saving">—</strong><span class="metric-foot">vs. plain JSON</span></div>
+          <div class="metric"><span class="metric-label">CONTENT-ENCODING</span><strong class="metric-code" id="content-encoding">—</strong><span class="metric-foot" id="encoding-caption">Negotiated response</span></div>
+          <div class="metric"><span class="metric-label">DICTIONARY COST</span><strong id="dict-cost">—</strong><span class="metric-foot" id="dict-caption">First use / repeat use</span></div>
+        </div>
+        <div class="bar-block"><div class="bar-labels"><span>Bytes sent for the JSON response</span><span id="bar-legend">plain 100%</span></div><div class="bar-track"><div class="bar-fill" id="bar-fill"></div></div><div class="bar-ticks"><span>0</span><span id="plain-tick">—</span></div></div>
+        <div class="notice" id="notice"><span class="notice-icon">i</span><p><strong>This tab uses browser-managed Compression Dictionary Transport.</strong> The page advertises <code>/api/dictionary</code>; Chrome fetches and caches it, then can send <code>Available-Dictionary</code> on a later matching request. The server returns <code>Content-Encoding: dcb</code> only when the hash matches. If this browser has no CDT support, it falls back to Brotli. <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Compression_dictionary_transport" target="_blank" rel="noreferrer">Read the protocol flow ↗</a></p></div>
+        <div class="load-row"><button id="reload" class="reload"><span>↻</span> Fetch again</button><span class="load-status" id="status">Fetching sample…</span><span class="method-pill" id="method-pill">GET /api/items</span></div>
+      </section>
+      <section class="stories-head"><div><p class="eyebrow">SAME RESPONSE, EVERY TAB</p><h2>A few places to go</h2></div><span class="result-count" id="result-count">— RESULTS</span></section>
+      <section class="story-grid" id="story-grid" aria-live="polite" aria-busy="true"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></section>
+      <footer><span>FIELDNOTES <span class="brand-divider">/</span> COMPRESSION LAB</span><span>Text compresses beautifully. Photos already know how to pack.</span><a href="https://www.rfc-editor.org/rfc/rfc9842.html" target="_blank" rel="noreferrer">READ ABOUT DICTIONARY TRANSPORT ↗</a></footer>
+    </main>
+  </body>
+</html>
